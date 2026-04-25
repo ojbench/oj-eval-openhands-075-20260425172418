@@ -4,12 +4,14 @@ project(str_class)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Create an executable that includes str.hpp
-# Since this is a header-only implementation, we need a main file
-# The OJ will provide the main file, so we just need to ensure str.hpp compiles
-
-# Create a dummy main for testing purposes
-add_executable(code test_main.cpp)
+# The OJ will provide the main file, we just need to make sure str.hpp is available
+# For local testing, we can create a test main if it exists
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test_main.cpp")
+    add_executable(code test_main.cpp)
+else()
+    # Create a minimal main for compilation testing
+    add_executable(code main.cpp)
+endif()
 
 # Set the output name to "code" as required by OJ
 set_target_properties(code PROPERTIES OUTPUT_NAME "code")
